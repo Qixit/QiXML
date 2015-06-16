@@ -1,0 +1,176 @@
+<!-- Spleefing gamemode, organised by types. Written by Qixit -->
+===============================================
+<!-- Required filters -->
+<filters>
+    <cause id="trample">trample</cause>
+        <!-- Or -->
+    <cause id="punch">punch</cause>
+    <any id="breakable-blocks">
+        <material></material>
+        <material></material>
+    </any>
+</filters>
+<!-- Modules used -->
+<falling-blocks>
+<blockdrops>
+===============================================
+<!-- Type 1:
+        Once a block is trampled by a player it will fall.
+ -->
+<falling-blocks>
+    <rule>
+        <filter>
+            <material></material>
+        </filter>
+    </rule>
+</falling-blocks>
+<blockdrops trample="true">
+    <rule>
+        <filter>
+            <all>
+                <filter id="trample" />
+                <material></material>
+            </all>
+        </filter>
+        <replacement></replacement>
+    </rule>
+</blockdrops>
+<!-- Extensions:
+        Have a block change (once trampled) to another block before being trampled again and exterminated.        
+-->
+<falling-blocks>
+    <rule>
+        <!-- This rule remains, however the material changes -->
+        <filter>
+            <material></material>
+        </filter>
+    </rule>
+    <rule>
+        <!-- To prevent PGM from not allowing the new block to fall -->
+        <filter>
+            <material></material>
+            <sticky>
+                <material></material>
+            </sticky>
+        </filter>
+    </rule>
+</falling-blocks>
+<blockdrops trample="true">
+    <rule>
+        <filter>
+            <all>
+                <filter id="trample" />
+                <material></material>
+            </all>
+        </filter>
+        <replacement></replacement>
+    </rule>
+</blockdrops>
+===============================================
+<!-- Type 2:
+        Once a block is trampled by a player it will fall.
+        When an area of blocks are isolated from other blocks they will fall.
+        To prevent the whole map falling due to player actions, it is suggested that sticky blocks are placed frequently throughout the map. 
+        Multiple sticky blocks and changeable blocks (blockdrops module) can be added. 
+-->
+<falling-blocks>
+    <rule>
+        <filter>
+            <material></material>
+        </filter>
+        <sticky>
+            <any>
+                <material></material>
+                <material></material>
+            </any>
+        </sticky>
+    </rule>
+</falling-blocks>
+<blockdrops trample="true">
+    <rule>
+        <filter>
+            <all>
+                <filter id="trample" />
+                <material></material>
+            </all>
+        </filter>
+        <replacement></replacement>
+    </rule>
+</blockdrops>
+===============================================
+<!-- Type 3:
+        #UNDER DEVELOPMENT - SUBJECT TO CHANGE#
+        Spleef PVP:
+            In this concept, which may or may not be applied, players have to fight for their lives (FFA gamemode).
+            Falling blocks will enetiate depending on either armor worn by players or items carried (preferably armor due to the locked="true/false" feature) or a kill streak amount. If they are to kill another player, and recieve a new piece of armor the falling blocks module will cause a block to fall underneath them and also proceed to "fill in" this hole with renewables. The first player to the bottom of the map wins (with redeemables)!
+
+            To prevent the wrong player exiting the area through falling blocks, the velocity of @="0, -10, 0" will be applied to the player upon recieving these items.
+-->
+<falling-blocks>
+    <rule delay="0s">
+        <filter>
+            <material></material>
+        </filter>
+    </rule>
+</falling-blocks>
+<blockdrops trample="true">
+    <rule>
+        <filter>
+            <all>
+                <filter id="trample" />
+                <kill-streak count="1"/>
+                <material></material>
+            </all>
+        </filter>
+        <replacement></replacement>
+    </rule>
+</blockdrops>
+<renewables>
+    <renewable rate="0s" particles="true" sound="true" avoid-entities="false">
+        <region/>
+        <renew-filter>
+            <material></material>
+        </renew-filter>
+    </renewable>
+</renewables>
+<regions>
+    <apply velocity="@0, -10, 0">
+        <region/>
+    </apply>
+</regions>
+<!-- Additional potion effects, and other features should be applied to the player to reduce the chances of one or multiple players progressing onto the next stage, without the proper kill streak.
+    If all else fails see below:
+-->
+<portals>
+    <!-- Adds 110 to the players Y position, X, Z, pitch & yaw remain unchanged. Upon entering a region with 1 kill streak they will be teleported up to their original area on the map. This will not apply to other players who actually have a kill streak of 2 -->
+    <portal y="5">
+        <kill-streak count="1"/>
+        <region><cuboid min="-56,33,-1" max="-55,35,2"/></region>
+    </portal>
+</portals>
+===============================================
+<!-- Type 4:
+        If a block is to be punched by a player it will fall. Types 1 and its extension can be applied to extend the possibilities of more types of blocks falling, when a block falls, etc.
+-->
+<filters>
+    <cause id="punch">punch</cause>
+</filters>
+<falling-blocks>
+    <rule>
+        <filter>
+            <material></material>
+        </filter>
+    </rule>
+</falling-blocks>
+<blockdrops punch="true">
+    <rule>
+        <filter>
+            <all>
+                <filter id="punch" />
+                <material></material>
+            </all>
+        </filter>
+        <replacement></replacement>
+    </rule>
+</blockdrops>
+===============================================
