@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<map proto="1.3.5">
+<name>Gleon</name>
+<version>1.0.0</version>
+<objective>Hold the flag until 400 points has been scored!</objective>
+<score>
+    <limit>400</limit>
+    <kills>0</kills>
+    <deaths>-5</deaths>
+</score>
+<authors>
+    <author uuid="10c1b730-49b9-4f75-9212-91facc371477" />
+    <!-- Qixit -->
+</authors>
+<destroyables show="false" show-progress="false" completion="0%">
+    <destroyable name="Monuments" show-progress="false" materials="redstone lamp on;water;44:3" owner="blue" mode-changes="true" sparks="true">
+        <region name="blue-start"/>
+        <region name="opposite-area"/>
+    </destroyable>
+    <destroyable name="Monuments-1" show-progress="false" materials="redstone lamp on;water;44:3" owner="red" mode-changes="true" sparks="true">
+        <region name="red-start"/>
+        <region name="obspawn-area"/>
+    </destroyable>
+    <!-- Other flag areas disabled beacons until mode change
+    <destroyable region="obspawn-area" show-progress="false" materials="44:3" owner="red" mode-changes="true" sparks="true"/>
+    <destroyable region="opposite-area" show-progress="false" materials="44:3" owner="red" mode-changes="true" sparks="true"/> -->
+</destroyables>
+<modes>
+    <mode after="7s" name="Dropping in" material="air"/>
+</modes>
+<broadcasts>
+    <alert after="1s">Once captured, the Flag will reward the capturer's team with 1 point per second.</alert>
+    <alert after="2s">`3`lThe first team to 400 points wins!</alert>
+</broadcasts>
+<teams>
+    <team name="red-team" color="dark red" max="18" max-overfill="22">Red</team>
+    <team name="blue-team" color="blue" max="18" max-overfill="22">Blue</team>
+</teams>
+<respawn spectate="true" auto="true" delay="4s">
+    <message>
+    { translate: "death.respawn.confirmed.waiting.flagDropped" }
+    </message>
+</respawn>
+<flags>
+    <post id="post" return-time="0s" respawn-time="15s">
+        <block>-1764.5,13,-1135.5</block>
+        <block yaw="125">-1714.5,6,-1184.5</block>
+        <block yaw="125">-1813.5,6,-1085.5</block>
+    </post>
+    <flag id="flag" carry-message="`bHold the flag until 400 points are scored!" name="Flag" shared="true" post="post" points-rate="1" pickup-kit="flag" drop-kit="renew"/>
+</flags>
+<kits>
+    <kit name="flag" force="true">
+        <potion duration="oo" amplifier="2">health boost</potion>
+        <potion duration="2" amplifier="30">regeneration</potion>
+    </kit>
+    <kit name="renew" force="true">
+        <potion duration="1" amplifier="0">health boost</potion>
+        <potion duration="1" amplifier="5">regeneration</potion>
+    </kit>
+    <kit name="spawn" force="true">
+        <item slot="0" unbreakable="true">stone sword</item>
+        <item slot="1" unbreakable="true">bow</item>
+        <item slot="7" amount="2">golden apple</item>
+        <item slot="8" amount="64">golden carrot</item>
+        <item slot="6" amount="24">arrow</item>
+        <potion duration="5" amplifier="10">heal</potion>
+        <helmet unbreakable="true">iron helmet</helmet>
+        <potion duration="2" amplifier="0">health boost</potion>
+    </kit>
+   <kit name="red" parents="spawn">
+        <chestplate unbreakable="true" color="C40000" damage="-3000">leather chestplate</chestplate>
+        <leggings unbreakable="true" color="C40000" damage="-3000">leather leggings</leggings>
+        <boots unbreakable="true" color="C40000" damage="-3000" locked="true" attributes="generic.movementSpeed:multiply:0.15">leather boots</boots>
+    </kit>
+    <kit name="blue" parents="spawn">
+        <chestplate unbreakable="true" color="334CB2" damage="-3000">leather chestplate</chestplate>
+        <leggings unbreakable="true" color="334CB2" damage="-3000">leather leggings</leggings>
+        <boots unbreakable="true" color="334CB2" damage="-3000" locked="true" attributes="generic.movementSpeed:multiply:0.15">leather boots</boots>
+    </kit>
+    <kit name="kill-kit">
+        <potion amplifier="1" duration="5">regeneration</potion>
+    </kit>
+    <kit name="none">
+        <potion amplifier="-5" duration="3">jump</potion>
+        <potion amplifier="1" duration="3">confusion</potion>
+        <potion duration="5" amplifier="5">damage resistance</potion>
+        <potion duration="oo" amplifier="-4">health boost</potion>
+    </kit>
+</kits>
+<itemremove>
+    <item>seeds</item>
+    <item>sapling</item>
+    <item>apple</item>    
+    <item>golden carrot</item>
+    <item>arrow</item>
+    <item>leather leggings</item>
+    <item>leather chestplate</item>
+    <item>leather boots</item>
+    <item>stone sword</item>    
+    <item>bow</item>
+    <item>iron helmet</item>
+</itemremove>
+<filters>
+    <filter name="breakable-blocks">
+        <any>
+            <block>long grass</block>
+            <block>leaves</block>
+            <block>red rose</block>
+            <block>double plant</block>
+        </any>
+    </filter>
+    <filter name="no-flag">
+        <not>
+            <same-team>
+                <carrying-flag>flag</carrying-flag>
+            </same-team>
+        </not>
+    </filter>
+</filters>
+<regions>
+    <cuboid name="blue-start" min="-1718,68,-1087" max="-1716,66,-1089"/>
+    <cuboid name="red-start" min="-1812,68,-1183" max="-1810,66,-1181"/>
+    <cuboid name="obspawn-area" min="-1815,6.5,-1085" max="-1814,6,-1084"/>
+    <cuboid name="opposite-area" min="-1713,6,-1185" max="-1714,6.5,-1186"/>
+    <rectangle name="map" min="-oo,-oo" max="oo,oo" />
+    <cuboid name="spawn-1" min="-1809,5,-1184" max="-1813,7,-1180"/>
+    <cuboid name="spawn-2" min="-1715,5,-1090" max="-1719,7,-1086"/>
+    <apply block="breakable-blocks">
+        <rectangle min="-oo,-oo" max="oo,oo"/>
+    </apply>
+    <apply block="deny-players">
+        <rectangle min="-oo,-oo" max="oo,oo"/>
+    </apply>
+    <apply velocity="@0, 1.4, 0">
+        <cuboid name="j-2" min="-1759,4.5,-1140" max="-1758,4.5,-1141"/>
+    </apply>
+    <apply velocity="@0, 1.4, 0">
+        <cuboid name="j-1" min="-1769,4.5,-1129" max="-1770,4.5,-1130"/>
+    </apply>
+    <apply velocity="@0, -5, 0">
+        <cuboid min="-1718,68,-1087" max="-1716,66,-1089"/>
+    </apply>
+    <apply velocity="@0, -5, 0">
+        <cuboid min="-1812,68,-1183" max="-1810,66,-1181"/>
+    </apply>
+    <apply velocity="@0, 1.4, 0">
+        <cuboid min="-1759,4.5,-1139" max="-1760,4.5,-1140"/>
+    </apply>
+    <apply velocity="@0, 1.4, 0">
+        <cuboid min="-1769,4.5,-1131" max="-1768,4.5,-1130"/>
+    </apply>
+    <apply region="spawn-1" kit="red"/>
+    <apply region="spawn-2" kit="blue"/>
+</regions>
+<spawns>
+    <spawn team="Red" kit="none" force="true">
+        <point yaw="-45">-1811,69,-1182</point>
+    </spawn>
+    <spawn team="blue" kit="none" force="true">
+        <point yaw="135">-1717,69,-1088</point>
+    </spawn>
+    <default force="true">
+        <point yaw="-135">-1829,14,-1070</point>
+    </default>
+</spawns>
+<killreward>
+    <kit>
+        <kit name="kill-kit"/>
+    </kit>
+    <item amount="3">golden apple</item>
+    <item amount="12">arrow</item>
+</killreward>
+<disabledamage>
+    <damage>fall</damage>
+</disabledamage>
+</map>

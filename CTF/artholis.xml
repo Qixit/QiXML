@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<map proto="1.4.0">
+<name>Artholis</name>
+<version>1.0.0</version>
+<objective>Capture the opposing team's flags!</objective>
+<broadcasts>
+    <alert after="0.5s" filter="only-red">`rCapture any of the `1Blue team's flags `rfour times to win!</alert>
+    <alert after="0.5s" filter="only-blue">`rCapture any of the `4Red team's flags `rfour times to win!</alert>
+    <tip every="2m" after="15s">Boats are not craftable, instead you will recive them every `l15 kills.</tip>
+</broadcasts>
+<authors>
+	<author uuid="e3fdaea1-8a19-4378-8ad7-41cf63f5d141"/> <!-- Avaleer -->
+    <author uuid="10c1b730-49b9-4f75-9212-91facc371477" contribution="XML coding and packaging, CTF gamemode transition"/> <!-- Qixit -->
+</authors>
+<time>20m</time>
+<score>
+    <limit>4</limit>
+</score>
+<teams>
+	<team id="blue-team" color="blue" max="25" max-overfill="28">Blue</team>
+	<team id="red-team" color="red" max="25" max-ovefill="28">Red</team>
+</teams>
+<spawns>
+    <spawn team="red-team" kit="red-kit">
+        <regions yaw="-180">
+            <block>-244.5,4.5,247.5</block>
+        </regions>
+    </spawn>
+    <spawn team="blue-team" kit="blue-kit">
+        <regions yaw="0"> 
+            <block>-244.5,4.5,67.5</block>
+        </regions>
+    </spawn>
+    <default>
+        <regions yaw="180">
+            <block>-244.486,40,157.559</block>
+        </regions>
+    </default>
+</spawns>
+<respawn spectate="true" auto="true" delay="3s">
+    <message>
+        { translate: "death.respawn.confirmed.waiting.flagDropped" }
+    </message>
+</respawn>
+<kits>
+	<kit id="spawn" force="true">
+		<item slot="0" unbreakable="true">stone sword</item>
+		<item slot="1" unbreakable="true">bow</item>
+		<item slot="2" unbreakable="true" enchantment="dig speed:2">iron pickaxe</item>
+		<item slot="3" amount="16">sandstone</item>
+		<item slot="4" amount="12" damage="2">log</item>
+		<item slot="7" amount="2">golden apple</item>
+		<item slot="8" amount="64">cooked chicken</item>
+		<item slot="28" amount="32">arrow</item>
+		<potion duration="5" amplifier="5">heal</potion>
+        <potion duration="5" amplifier="1">speed</potion>
+        <potion duration="1" amplifier="1">night vision</potion>
+		<chestplate unbreakable="true" enchantment="depth strider:1">gold chestplate</chestplate>
+	</kit>
+	<kit id="red-kit" parents="spawn">
+		<helmet unbreakable="true" color="993333">leather helmet</helmet>
+		<leggings unbreakable="true" color="993333">leather leggings</leggings>
+		<boots unbreakable="true" color="993333">leather boots</boots>
+	</kit>
+	<kit id="blue-kit" parents="spawn">
+		<helmet unbreakable="true" color="334CB2">leather helmet</helmet>
+		<leggings unbreakable="true" color="334CB2">leather leggings</leggings>
+		<boots unbreakable="true" color="334CB2">leather boots</boots>
+	</kit>
+	<kit id="flag" force="true">
+        <potion duration="oo" amplifier="1">health boost</potion>
+        <potion duration="5" amplifier="15">regeneration</potion>
+        <chestplate unbreakable="true" enchantment="depth strider:-5">diamond chestplate</chestplate>
+    </kit>
+    <kit id="renew" force="true">
+        <potion duration="1" amplifier="0">health boost</potion>
+        <potion duration="1" amplifier="5">regeneration</potion>
+        <chestplate unbreakable="true" enchantment="depth strider:3">iron chestplate</chestplate>
+    </kit>
+</kits>
+<killreward>
+	<item amount="16">arrow</item>
+	<item amount="3" damage="2">log</item>
+	<item amount="2">golden apple</item>
+</killreward>
+<killreward>
+    <filter>
+        <kill-streak count="15" /> 
+    </filter>
+    <item>boat</item>
+</killreward>
+<itemremove>
+	<item>cooked chicken</item>
+    <item>diamond chestplate</item>
+	<item>arrow</item>
+	<item>wood button</item>
+	<item>cauldron item</item>
+	<item>note block</item>
+	<item>seeds</item>
+	<item>flower pot</item>
+	<item>gold chestplate</item>
+	<item>leather helmet</item>
+	<item>leather leggings</item>
+	<item>leather boots</item>
+    <item>stone sword</item>
+    <item>bow</item>
+    <item>dirt</item>
+    <item>sand</item>
+    <item>wood button</item>
+    <item>chest</item>
+    <item>iron axe</item>
+    <item>iron pickaxe</item>
+    <item damage="2">log</item>
+    <item>cobble wall</item>
+    <item>nether fence</item>
+    <item>flower pot</item>
+    <item>sapling</item>
+    <item damage="2">wood</item>
+</itemremove>
+<maxbuildheight>22</maxbuildheight>
+<filters>
+	<team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+	<not id="deny-void">
+        <void />
+    </not>
+</filters>
+<regions>
+	<rectangle id="map" min="oo,oo" max="-oo,-oo"/>
+	<rectangle id="red-flag-left-2" min="-294,241" max="-291,244"/>
+	<rectangle id="red-flag-right-1" min="-199,244" max="-195,241"/>
+	<rectangle id="blue-flag-left-2" min="-195,74" max="-198,71"/>
+	<rectangle id="blue-flag-right-1" min="-291,71" max="-294,74"/>
+	<!-- Spawn protection -->
+	<rectangle id="red-spawn" min="-242,245" max="-247,250"/>
+    <rectangle id="red-net" min="-242,245" max="-247,250"/>
+	<apply enter="only-red" block="never">
+        <region id="red-spawn"/>
+    </apply>
+    <rectangle id="blue-spawn" min="-242,65" max="-247,70"/>
+    <rectangle id="blue-net" min="-242,65" max="-247,70"/>
+    <apply enter="only-blue" block="never">
+        <region>
+            <region id="blue-spawn"/>
+        </region>
+    </apply>
+    <!-- Block protection -->
+    <apply block="never">
+        <region id="blue-spawn"/>
+        <region id="red-spawn"/>
+        <region id="red-flag-left-2"/>
+        <region id="red-flag-right-1"/>
+        <region id="blue-flag-left-2"/>
+        <region id="blue-flag-right-1"/>
+    </apply>
+    <apply block="deny-void" message="You may not build in the void area!">
+        <everywhere/>
+    </apply>
+</regions>
+<!-- To prevent bad gameplay, boat crafting has been disabled -->
+<crafting>
+    <disabled>boat</disabled>
+	<shaped override="true">
+    	<result>boat</result>
+            <shape>
+                <row>DDD</row>
+            </shape>    
+            <ingredient symbol="D">diamond</ingredient>
+    </shaped>
+</crafting>
+<!-- Applied to the iron block deposits -->
+<renewables>
+    <renewable interval="400" grow="false" particles="true" sound="true" avoid-entities="true">
+		<region>
+            <rectangle id="iron-deposit-1" min="-247,210" max="-242,205"/>
+            <rectangle id="iron-deposit-2" min="-248,111" max="-241,104"/>
+        </region>
+        <renew-filter>
+            <any>
+                <material>iron block</material>
+            </any>
+        </renew-filter>
+    </renewable>
+</renewables>
+<flags>
+    <flag id="left-blue-flag" return-time="15s" name="Left Blue Flag" owner="blue-team" color="blue" pickup-filter="only-red" pickup-kit="flag" drop-kit="renew" carry-message="`bReturn the flag to your spawn!" drop-on-water="false" recover-time="15s"><!-- Left Blue Flag -->
+        <post yaw="0">-196.5,3,72.5</post>
+    </flag>
+    <flag id="right-blue-flag" return-time="15s" name="Right Blue Flag" owner="blue-team" color="blue" pickup-filter="only-red" pickup-kit="flag" drop-kit="renew" carry-message="`bReturn the flag to your spawn!" drop-on-water="false" recover-time="15s"><!-- Right Blue Flag -->
+        <post yaw="0">-292.5,3,72.5</post>
+    </flag>
+    <flag id="left-red-flag" return-time="15s" name="Left Red Flag" owner="red-team" color="red" pickup-filter="only-blue" pickup-kit="flag" drop-kit="renew" carry-message="`bReturn the flag to your spawn!" drop-on-water="false" recover-time="15s"><!-- Left Red Flag -->
+        <post yaw="180">-292.5,3,242.5</post>
+    </flag>
+    <flag id="right-red-flag" return-time="15s" name="Right Red Flag" owner="red-team" color="red" pickup-filter="only-blue" pickup-kit="flag" drop-kit="renew" carry-message="`bReturn the flag to your spawn!" drop-on-water="false" recover-time="15s"><!-- Right Red Flag -->
+        <post yaw="180">-196.5,3,242.5</post>
+    </flag>
+    <flags points="1">
+        <net region="blue-net" flag="left-red-flag"/>
+        <net region="blue-net" flag="right-red-flag"/>
+        <net region="red-net" flag="left-blue-flag"/>
+        <net region="red-net" flag="right-blue-flag"/>
+    </flags>
+</flags>
+<tnt>
+	<fuse>2s</fuse>
+	<power>2</power>
+	<instantignite>true</instantignite>
+	<licensing>off</licensing>
+	<friendly-defuse>off</friendly-defuse>
+	<blockdamage>false</blockdamage>
+</tnt>
+</map>

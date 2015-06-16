@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<map proto="1.4.0">
+<name>Transverse</name>
+<version>1.0.0</version>
+<objective>Capture the opposing team's flags.</objective>
+<authors>
+    <author uuid="36e46b32-80ef-4fa5-b1e2-6c777736d888" />
+    <!-- Elijah -->
+</authors>
+<contributors>
+    <contributor contribution="XML" uuid="10c1b730-49b9-4f75-9212-91facc371477" />
+    <!-- Qixit -->
+</contributors>
+<score>
+    <limit>2</limit>
+</score>
+<teams>
+    <team id="red" color="dark red" max="10" max-overfill="10">Red</team>
+    <team id="blue" color="blue" max="10" max-overfill="10">Blue</team>
+</teams>
+<spawns>
+    <spawn team="red" kit="spawn">
+        <regions yaw="-44">
+            <block>-39,42,-39</block>
+        </regions>
+    </spawn>
+    <spawn team="blue" kit="spawn">
+        <regions yaw="133">
+            <block>40,42,40</block>
+        </regions>
+    </spawn>
+    <default>
+        <regions yaw="-136">
+            <block>0.5,50,0.5</block>
+        </regions>
+    </default>
+</spawns>
+<maxbuildheight>40</maxbuildheight>
+<filters>
+    <team id="only-red">red</team>
+    <team id="only-blue">blue</team>
+    <not id="deny-void">
+        <void />
+    </not>    
+    <any id="flag-room-blockbreak">
+        <material>ladder</material>
+        <material>web</material>
+        <material>stained glass pane</material>
+        <material>1:6</material>
+        <material>98</material>
+        <material>162:1</material>
+        <material>17</material>
+        <material>5</material>
+        <material>5:5</material>
+        <material>162:1</material>
+    </any>
+    <deny id="furnace-open">
+        <material>furnace</material>
+    </deny>
+</filters>
+<regions>
+    <apply block="deny-void" message="You may not edit the void area!">
+        <everywhere/>
+    </apply>
+    <apply use="furnace-open">
+        <everywhere/>
+    </apply>
+    <apply enter="never">
+        <region>
+            <above id="deny-above" y="62"/>
+        </region>
+    </apply>
+    <!-- Red Side: Regions -->
+    <rectangle id="red-spawn" min="-43,-43" max="-35,-35"/>
+    <rectangle id="lightblue-room" min="-63,-40" max="-72,-52"/>
+    <rectangle id="blue-room" min="-40,-63" max="-52,-72"/>
+    <!-- Red Side: Applied filters to regions -->
+    <apply region="lightblue-room" block="flag-room-blockbreak"/>
+    <apply region="lightblue-room" block-place="only-blue" block-break="only-blue"/>
+    <apply region="lightblue-room" block-break="never" block-place="never" message="`0You may not break the `9Light Blue Flag room."/>
+    <apply region="lightblue-room" enter="only-blue" message="`0You may not enter the `9Light Blue Flag room."/>
+    <apply region="blue-room" block="flag-room-blockbreak"/>
+    <apply region="blue-room" block-place="only-blue" block-break="only-blue"/>
+    <apply region="blue-room" block-break="never" block-place="never" message="`0You may not break the `1Blue Flag room."/>
+    <apply region="blue-room" enter="only-blue" message="`0You may not enter the `1Blue Flag room."/>
+    <!-- Blue Side: Regions-->
+    <rectangle id="blue-spawn" min="36,36" max="44,44"/>
+    <rectangle id="pink-room" min="41,73" max="53,64"/>
+    <rectangle id="red-room" min="64,41" max="73,53"/>
+    <!-- Blue Side: Applied filters to regions -->
+    <apply region="blue-spawn" block-break="never" block-place="never" message="`0You may not alter `9Blue spawn."/>
+    <apply region="pink-room" block="flag-room-blockbreak"/>
+    <apply region="pink-room" block-place="only-red" block-break="only-red"/>
+    <apply region="pink-room" block-break="never" block-place="never" message="`0You may not break the `DPink Flag room."/>
+    <apply region="pink-room" enter="only-red" message="`0You may not enter the `DPink Flag room."/>
+    <apply region="red-room" block="flag-room-blockbreak"/>
+    <apply region="red-room" block-place="only-red" block-break="only-red"/>
+    <apply region="red-room" block-break="never" block-place="never" message="`0You may not break the `4Red Flag room."/>
+    <apply region="red-room" enter="only-red" message="`0You may not enter the `4Red Flag room."/>
+</regions>
+<flags>
+    <flag id="lightblue-flag" name="Light Blue Flag" owner="red" color="light blue" pickup-filter="only-blue" pickup-kit="flag" drop-kit="flag-drop" carry-message="`bReturn the flag to your spawn!" drop-on-water="false" respawn-time="0" points="1">
+        <post permanent="true" recover-time="oo">-67.5,15,-50.5</post>
+    </flag>
+    <flag id="blue-flag" name="Blue Flag" owner="red" color="blue" pickup-filter="only-blue" pickup-kit="flag" drop-kit="flag-drop" carry-message="`bReturn the flag to your spawn!" drop-on-water="false" respawn-time="0" points="1">
+        <post permanent="true" recover-time="oo">-50.5,15,-67.5</post>
+    </flag>
+    <flag id="red-flag" name="Red Flag" owner="blue" color="red" pickup-filter="only-red" pickup-kit="flag" drop-kit="flag-drop" carry-message="`bReturn the flag to your spawn!" drop-on-water="false" respawn-time="0" points="1">
+        <post permanent="true" recover-time="oo">68.5,15,51.5</post>
+    </flag>
+    <flag id="pink-flag" name="Pink Flag" owner="blue" color="pink" pickup-filter="only-red" pickup-kit="flag" drop-kit="flag-drop" carry-message="`bReturn the flag to your spawn!" drop-on-water="true" respawn-time="0" points="1">
+        <post permanent="true" recover-time="oo">51.5,15,68.5</post>
+    </flag>
+    <flags points="1">
+        <net region="red-spawn" flag="pink-flag"/>
+        <net region="red-spawn" flag="red-flag"/>
+        <net region="blue-spawn" flag="lightblue-flag"/>
+        <net region="blue-spawn" flag="blue-flag"/>
+    </flags>
+</flags>
+<kits>
+    <kit id="flag" force="true">
+        <potion duration="oo" amplifier="2">health boost</potion>
+        <potion duration="2" amplifier="15">regeneration</potion>
+    </kit>
+    <kit id="flag-drop" force="true">
+        <potion duration="1" amplifier="0">health boost</potion>
+        <potion duration="1" amplifier="5">regeneration</potion>
+    </kit>
+    <kit id="spawn">
+        <item slot="0" unbreakable="true">iron sword</item>
+        <item slot="1" unbreakable="true">bow</item>
+        <item slot="2" unbreakable="true" enchantment="dig speed:3">iron pickaxe</item>
+        <item slot="3" amount="32">log</item>
+        <item slot="4" amount="64">smooth brick</item>
+        <item slot="5" amount="64">glass</item>
+        <item slot="8" amount="64">golden carrot</item>
+        <item slot="28" amount="64">arrow</item>
+        <potion duration="2" amplifier="30">regeneration</potion>
+    </kit>
+</kits>
+<itemremove>
+    <item>golden carrot</item>
+    <item>emerald block</item>
+    <item>gold block</item>
+    <item>obsidian</item>
+    <item>dispenser</item>
+    <item>beacon</item>
+    <item>cobblestone</item>
+    <item>coal block</item>
+    <item>carpet</item>
+    <item>string</item>
+    <item>wool</item>
+    <item>iron sword</item>
+    <item>bow</item>
+    <item>iron pickaxe</item>
+    <item>log</item>
+    <item>glass</item>
+    <item>arrow</item>
+</itemremove>
+</map>
