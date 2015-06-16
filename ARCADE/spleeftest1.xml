@@ -1,0 +1,72 @@
+<map proto="1.4.0" game="Blitz">
+<name>Spleefing: Test 1</name>
+<version>1.0.1</version>
+<objective>Avoid spleefing yourself as well as spleefing others!</objective>
+<authors>
+	<author uuid="10c1b730-49b9-4f75-9212-91facc371477"/>
+	<!--  Qixit  -->
+	</authors>
+<time>7m</time>
+<blitz>
+	<lives>1</lives>
+	<broadcastLives>true</broadcastLives>
+</blitz>
+<players max="20" max-overfill="20" />
+<spawns>
+    <spawn kit="spawn" safe="true">
+        <regions angle="-144.5,1,635.5">
+            <cylinder base="-144.5,1,635.5" radius="30" height="1"/>
+        </regions>
+    </spawn>
+    <default>
+        <regions>
+            <point yaw="180">-144.5,3,653.5</point>
+        </regions>
+    </default>
+</spawns>
+<kits>
+	<kit id="spawn">
+		<potion duration="oo" amplifier="127">weakness</potion>
+		<potion duration="oo" amplifier="127">slow digging</potion>
+		<potion duration="oo" amplifier="-50">jump</potion>
+	</kit>
+</kits>
+<killreward>
+	<potion duration="10" amplifier="2">speed</potion>
+</killreward>
+<filters>
+	<any id="breakable-blocks">
+		<material>grass</material>
+		<material>dirt:1</material>
+		<material>mossy cobblestone</material>
+		<material>smooth brick:1</material>
+	</any>
+    <cause id="trample">trample</cause>
+</filters>
+<falling-blocks>
+    <rule>
+        <filter>
+            <material>mossy cobblestone</material>
+        </filter>
+    </rule>
+</falling-blocks>
+<blockdrops trample="true">
+    <rule>
+        <filter>
+            <all>
+                <filter id="trample" />
+                <material>grass</material>
+            </all>
+        </filter>
+        <replacement>mossy cobblestone</replacement>
+    </rule>
+</blockdrops>
+<regions>
+	<apply block="breakable-blocks">
+		<everywhere/>
+	</apply>
+	<apply block="never">
+		<everywhere/>
+	</apply>
+</regions>
+</map>
