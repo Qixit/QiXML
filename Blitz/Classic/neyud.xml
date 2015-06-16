@@ -1,0 +1,169 @@
+<map proto="1.4.0" game="Blitz">
+<name>Neyud</name>
+<version>1.0.1</version>
+<objective>Kill the opposing team before the time limit is up!</objective>
+<authors>
+	<author uuid="10c1b730-49b9-4f75-9212-91facc371477"/>
+	<!--  Qixit  -->
+	</authors>
+<time>10m</time>
+<blitz>
+	<lives>1</lives>
+</blitz>
+<teams>
+	<team id="red-team" show-name-tags="true" color="dark red" max="10" max-overfill="12">Red</team>
+	<team id="blue-team" show-name-tags="true" color="blue" max="10" max-overfill="12">Blue</team>
+</teams>
+<modes>
+	<mode name="Gates Removed" after="7s" material="air"/>
+</modes>
+<destroyables>
+	<destroyable name="blue-castle-1" owner="blue-team" mode-changes="true" materials="iron fence" completion="0%" repairable="false" sparks="true" show="false">
+		<region>
+			<cylinder base="40.5,47,-226.5" radius="1" height="5"/>
+		</region>
+	</destroyable>
+	<destroyable name="blue-castle-2" owner="blue-team" mode-changes="true" materials="iron fence" completion="0%" repairable="false" sparks="true" show="false">
+		<region>
+			<cylinder base="13.5,55,-222.5" radius="1" height="5"/>
+		</region>
+	</destroyable>
+	<destroyable name="red-castle-1" owner="red-team" mode-changes="true" materials="iron fence" completion="0%" repairable="false" sparks="true" show="false">
+		<region>
+			<cylinder base="18.5,47,-152.5" radius="1" height="7"/>
+		</region>
+	</destroyable>
+	<destroyable name="red-castle-2" owner="red-team" mode-changes="true" materials="iron fence" completion="0%" repairable="false" sparks="true" show="false">
+		<region>
+			<cylinder base="45.5,55,-156.5" radius="1" height="7"/>
+		</region>
+	</destroyable>
+</destroyables>
+<classes sticky="false" family="Players">
+	<class name="Archer" default="false" description="If you are good at shooting arrows, this kit will best suite you." icon="bow">
+		<kit>
+			<potion duration="3" amplifier="2" ambient="false">damage resistance</potion>
+			<item slot="0" unbreakable="true" enchantment="arrow damage:1">bow</item>
+			<item slot="1" amount="16">arrow</item>
+			<item slot="2" unbreakable="true" attributes="generic.maxHealth:add:-5">wood sword</item>
+			<item slot="7" amount="3">golden apple</item>
+			<item slot="8" amount="48">pumpkin pie</item>
+			<chestplate unbreakable="true">chainmail chestplate</chestplate>
+			<leggings unbreakable="true">chainmail leggings</leggings>
+		</kit>
+	</class>
+	<class name="Medic" default="false" description="Heal your team and build blockades to protect your team." icon="golden apple">
+		<kit>
+			<item slot="0" amount="10" damage="16385" potions="regeneration:5:2:true">potion</item>
+			<item slot="1" amount="5" damage="16389" potions="heal:1:0:true">potion</item>
+			<item slot="2" unbreakable="true" attributes="generic.attackDamage:add:-3" name="Weak Sword">wood sword</item>
+			<item slot="3" amount="6">hay block</item>
+			<item slot="7" amount="1">golden apple</item>
+			<item slot="8" amount="48">pumpkin pie</item>
+		</kit>
+	</class>
+	<class name="Swordsman" default="true" description="If you are good at using the sword, this kit will best suite you." icon="stone sword">
+		<kit>
+			<potion duration="3" amplifier="2" ambient="false">damage resistance</potion>
+			<item slot="0" unbreakable="true">stone sword</item>
+			<item slot="1" unbreakable="true">bow</item>
+			<item slot="3" amount="10">arrow</item>
+			<item slot="7" amount="3">golden apple</item>
+			<item slot="8" amount="48">pumpkin pie</item>
+			<potion duration="6" amplifier="1">heal</potion>
+			<chestplate unbreakable="true">iron chestplate</chestplate>
+			<leggings unbreakable="true">chainmail leggings</leggings>
+		</kit>
+	</class>
+</classes>
+<kits>
+	<kit id="red">
+		<helmet color="cd0000" unbreakable="true">leather helmet</helmet>
+		<boots color="cd0000" unbreakable="true">leather boots</boots>
+	</kit>
+	<kit id="blue">
+		<helmet color="0066cc" unbreakable="true">leather helmet</helmet>
+		<boots color="0066cc" unbreakable="true">leather boots</boots>
+	</kit>
+</kits>
+<killreward>
+	<item>golden apple</item>
+	<item amount="6">arrow</item>
+</killreward>
+<itemremove>
+	<item>leather helmet</item>
+	<item>chainmail leggings</item>
+	<item>leather boots</item>
+	<item>pumpkin pie</item>
+	<item>iron chestplate</item>
+	<item>wood button</item>
+	<item>stone plate</item>
+	<item>seeds</item>
+	<item>armor stand</item>
+	<item>gold helmet</item>
+	<item>gold chestplate</item>
+	<item>gold leggings</item>
+	<item>gold boots</item>
+	<item>hay block</item>
+	<item>redstone</item>
+	<item>red rose</item>
+</itemremove>
+<blockdrops>
+	<rule>
+		<region>
+			<cuboid min="-40,34,-125" max="88,78,-245"/>
+		</region>
+		<filter>
+			<any>
+				<material>hay block</material>
+			</any>
+		/filter>
+		<drops>
+			<item amount="3">wheat</item>
+			<item amount="1">leather</item>
+		</drops>
+	</rule>
+</blockdrops>
+<filters>
+	<any id="breakable-blocks">
+		<material>long grass</material>
+		<material>double plant</material>
+		<material>hay block</material>
+		<material>redstone wire</material>
+		<material>red rose</material>
+	</any>
+</filters>
+<regions>
+	<apply enter="never">
+		<region>
+			<above id="deny-above" y="62"/>
+		</region>
+	</apply>
+	<apply block="breakable-blocks">
+		<everywhere/>
+	</apply>
+	<apply block="never">
+		<everywhere/>
+	</apply>
+</regions>
+<spawns>
+	<spawn team="blue-team" kit="blue">
+		<regions>
+			<point yaw="45">"41.700,48,-233.700"</point>
+		</regions>
+	</spawn>
+	<spawn team="red-team" kit="red">
+		<regions>
+			<point yaw="-135">"17.300,48,-145.300"</point>
+		</regions>
+	</spawn>
+	<default>
+		<regions>
+			<point yaw="-90">"29.5,41,-189.5"</point>
+		</regions>
+	</default>
+</spawns>
+<disabledamage>
+	<damage>fall</damage>
+</disabledamage>
+</map>
