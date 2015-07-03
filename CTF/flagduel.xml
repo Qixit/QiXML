@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<map proto="1.4.0">
+<name>Flag Duel</name>
+<version>1.0.0</version>
+<objective>Take the flag from the center and capture it behind your opponent's spawn!</objective>
+<authors>
+    <author uuid="61982fa8-f0f9-46d7-977a-47325c9bbd5c" />
+    <!-- JSBach -->
+</authors>
+<contributors>
+    <contributor uuid="c2848337-b526-4db0-9130-fabd0a5c7cfb" contribution="Provided the MapDev Server"/>
+    <!-- Rasta_Jol -->
+</contributors>
+<teams>
+    <team id="blue" color="blue" max="10">Blue Team</team>
+    <team id="red" color="dark red" max="10">Red Team</team>
+</teams>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <not id="deny-void">
+        <void />
+    </not>  
+    <any id="ladder-allowed">
+        <material>ladder</material>
+    </any>
+</filters>
+<regions>
+    <apply block="ladder-allowed">
+        <everywhere />
+    </apply>
+    <union id="flag-nets">
+        <cylinder id="blue-net" base="0,14,78" radius="3" height="6"/>
+        <cylinder id="red-net" base="0,14,-77" radius="3" height="6"/>
+    </union>
+    <union id="spawns">
+        <cuboid id="red-spawn" min="2,6,56" max="-1,0,66" />
+        <cuboid id="blue-spawn" min="-1,6,-55" max="2,0,-65" />
+        <cuboid id="default-spawn" min="-43.6,31,7.5" max="-51.27,34,-6.45" />
+    </union>
+    <apply enter="only-red" region="red-spawn" message="You may not enter the enemy's spawn!"/>
+    <apply enter="only-blue" region="blue-spawn" message="You may not enter the enemy's spawn!"/>
+</regions>
+<kits>
+    <kit id="spawn" force="true">
+        <item slot="0" unbreakable="true">stone sword</item>
+        <item slot="1" unbreakable="true">bow</item>
+        <item slot="2" amount="16">arrow</item>
+        <item slot="3">golden apple</item>
+        <leggings locked="true" unbreakable="true">chainmail leggings</leggings>
+    </kit>
+    <kit id="blue-kit" parents="spawn">
+        <helmet locked="true" color="0066cc" unbreakable="true">leather helmet</helmet>
+        <boots locked="true" color="0066cc" unbreakable="true">leather boots</boots>
+        <chestplate locked="true" color="0066cc" unbreakable="true">leather chestplate</chestplate>
+    </kit>
+    <kit id="red-kit" parents="spawn">
+        <helmet locked="true" color="cd0000" unbreakable="true">leather helmet</helmet>
+        <boots locked="true" color="cd0000" unbreakable="true">leather boots</boots>
+        <chestplate locked="true" color="cd0000" unbreakable="true">leather chestplate</chestplate>
+    </kit>
+</kits>
+<respawn delay="2.5s" auto="false" />
+<killreward>
+    <item>golden apple</item>
+    <item>gold ingot</item>
+</killreward>     
+<spawns>
+    <spawn team="blue" kit="blue-kit">
+        <regions>
+            <point yaw="0">0.5,2,-62.5</point>
+        </regions>
+    </spawn>
+    <spawn team="red" kit="red-kit">
+        <regions yaw="180">
+            <point yaw="180">0.5,2,63.5</point>
+        </regions>
+    </spawn>
+    <default>
+        <regions>
+            <point yaw="-90">-47.5,33,0.5</point>
+        </regions>
+    </default>
+</spawns>    
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<timelock>on</timelock>
+<itemremove>
+    <item>chainmail leggings</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather boots</item>
+</itemremove>
+<score>
+    <limit>3</limit>
+</score>
+<flags>
+    <flag id="flag" name="Flag" color="black" shared="true">
+        <post id="center-post">
+            <cylinder base="0,8,0" radius="4" height="1"/>
+        </post>
+        <net points="1" region="red-net" capture-filter="only-red"/>
+        <net points="1" region="blue-net" capture-filter="only-blue"/>
+    </flag>
+</flags>
+</map>

@@ -117,7 +117,7 @@
 			<any>
 				<material>hay block</material>
 			</any>
-		/filter>
+		</filter>
 		<drops>
 			<item amount="3">wheat</item>
 			<item amount="1">leather</item>

@@ -81,10 +81,10 @@
 <falling-blocks>
     <rule>
         <filter>
-            <material>mossy cobblestone</material>
+            <material></material>
         </filter>
         <sticky>
-            <material>grass</material>
+            <material></material>
         </sticky>
     </rule>
 </falling-blocks>
@@ -93,10 +93,10 @@
         <filter>
             <all>
                 <filter id="trample" />
-                <material>grass</material>
+                <material></material>
             </all>
         </filter>
-        <replacement>mossy cobblestone</replacement>
+        <replacement></replacement>
     </rule>
 </blockdrops>
 ===============================================
@@ -111,7 +111,7 @@
 <falling-blocks>
     <rule>
         <filter id="trample">
-            <material>mossy cobblestone</material>
+            <material></material>
         </filter>
     </rule>
 </falling-blocks>
@@ -121,17 +121,17 @@
             <all>
                 <filter id="trample" />
                 <kill-streak count="1"/>
-                <material>grass</material>
+                <material></material>
             </all>
         </filter>
-        <replacement>mossy cobblestone</replacement>
+        <replacement></replacement>
     </rule>
 </blockdrops>
 <renewables>
     <renewable particles="true" sound="true" avoid-entities="false">
         <region><everywhere /></region>
         <renew-filter>
-            <material>grass</material>
+            <material></material>
         </renew-filter>
     </renewable>
 </renewables>
@@ -181,3 +181,6 @@
     </rule>
 </blockdrops>
 ===============================================
+<!-- Type 5:
+        
+-->
