@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<map proto="1.3.6">
+<name>Artholis</name>
+<version>1.0.0</version>
+<objective>Destroy the opposing team's monument!</objective>
+<authors>
+	<author>Avaleer</author>
+</authors>
+<contributors>
+	<contributor contributation="XML">Qixit</contributor>
+</contributors>
+<teams>
+	<team id="blue" color="blue" max="30" max-overfill="35">Blue Team</team>
+	<team id="red" color="red" max="30" max-ovefill="35">Red Team</team>
+</teams>
+<spawns>
+    <spawn team="red" kit="red" yaw="-179.5">
+        <cuboid min="-246,4.5,246" max="-244,4.5,248"/>
+    </spawn>
+    <spawn team="blue" kit="blue" yaw="0">
+        <cuboid min="-244,4.5,66" max="-246,4.5,68"/>
+    </spawn>
+    <default yaw="-179">
+        <cuboid min="-246,29,156" max="-244,29,158"/>
+    </default>
+</spawns>
+<kits>
+	<kit name="spawn" force="true">
+		<item slot="0">stone sword</item>
+		<item slot="1">bow</item>
+		<item slot="2">diamond pickaxe</item>
+		<item slot="3" amount="64">sandstone</item>
+		<item slot="4" amount="32">birch wood</item>
+		<item slot="5" amount="64">glass</item>
+		<item slot="6">boat</item>
+		<item slot="7" amount="2">golden apple</item>
+		<item slot="8" amount="64">cooked chicken</item>
+		<item slot="28" amount="64">arrow</item>
+		<item slot="33">boat</item>
+		<potion duration="4" amplifier="3">heal</potion>
+	</kit>
+	<kit name="red" parents="spawn">
+		<helmet damage="-3000" color="993333">leather helmet</helmet>
+		<chestplate damage="-3000">gold chestplate</chestplate>
+		<leggings damage="-3000" color="993333">leather leggings</leggings>
+		<boots damage="-3000" color="993333">leather boots</boots>
+	</kit>
+	<kit name="blue" parents="spawn">
+		<helmet damage="-3000" color="334CB2">leather helmet</helmet>
+		<chestplate damage="-3000">gold chestplate</chestplate>
+		<leggings damage="-3000" color="334CB2">leather leggings</leggings>
+		<boots damage="-3000" color="334CB2">leather boots</boots>
+	</kit>
+</kits>
+<killreward>
+	<item amount="16">arrow</item>
+	<item>golden apple</item>
+</killreward>
+<toolrepair>
+	<tool>stone sword</tool>
+	<tool>bow</tool>
+	<tool>diamond pickaxe</tool>
+</toolrepair>
+<itemremove>
+	<item>cooked chicken</item>
+	<item>arrow</item>
+	<item>sword</item>
+	<item>bow</item>
+	<item>diamond pickaxe</item>
+	<item>wood button</item>
+	<item>cauldron</item>
+	<item>piston</item>
+	<item>noteblock</item>
+	<item>seed</item>
+	<item>flower pot</item>
+</itemremove>
+<maxbuildheight>24</maxbuildheight>
+<filters>
+	<filter name="only-blue">
+		<team>blue</team>
+	</filter>
+	<filter name="only-red">
+		<team>red</team>
+	</filter>
+	<filter name="no-block">
+		<not>
+			<block>glowstone</block>
+			<block>redstone lamp on</block>
+			<block>lever</block>
+		</not>
+	</filter>
+</filters>
+<regions>
+	<apply block="no-block">
+		<cuboid min="oo,oo,oo" max="-oo,-oo,-oo"/>
+	</apply>
+	<cuboid name="red-spawn" min="-250,0,254" max="-240,24,240"/>
+	<apply enter="only-red" block="deny-blocks">
+		<region name="red-spawn"/>
+	</apply>
+	<cuboid name="blue-spawn" min="-250,0,74" max="-240,0,60"/>
+	<apply enter="only-blue" block="deny-blocks">
+		<region name="blue-spawn"/>
+	</apply>
+	<apply block="deny-blocks" message="Do not edit beacons!">
+		<cuboid min="-292,24,73" max="-294,16,71"/>
+	</apply>
+	<apply block="deny-blocks" message="Do not edit beacons!">
+		<cuboid min="-292,24,241" max="-294,16,243"/>
+	</apply>
+	<apply block="deny-blocks" message="Do not edit beacons!">
+		<cuboid min="-198,24,241" max="-196,16,243"/>
+	</apply>
+	<apply block="deny-blocks" message="Do not edit beacons!">
+		<cuboid min="-198,24,73" max="-196,16,71"/>
+	</apply>
+	<apply block="deny-blocks" message="Do not attempt to leave the playing field!">
+		<negative>
+			<rectangle min="-309,56" max="-181,258"/>
+		</negative>
+	</apply>
+</regions>
+<blockdrops>
+    <rule>
+        <region>
+            <cuboid min="oo,oo,oo" max="-oo,-oo,-oo"/>
+        </region>
+        <filter>
+            <block>iron block</block>
+        </filter>
+        <drops>
+            <item amount="3">iron ingot</item>
+        </drops>
+        <replacement>iron block</replacement>
+        <wrongtool>false</wrongtool>
+    </rule>
+</blockdrops>
+<destroyables name="Monument" materials="obsidian" completion="100%">
+    <destroyable name="" owner="red">
+       <region><cuboid min="-293,8,242" max="-293,6,242"/></region>
+    </destroyable>
+    <destroyable name="" owner="red">
+       <region><cuboid min="-197,8,242" max="-197,6,242"/></region>
+    </destroyable>
+    <destroyable name="" owner="blue">
+       <region><cuboid min="-197,8,72" max="-197,6,72"/></region>
+    </destroyable>
+    <destroyable name="" owner="blue">
+       <region><cuboid min="-293,8,72" max="-293,6,72"/></region>
+    </destroyable>
+</destroyables>
+<modes>
+    <mode after="15m" show-before="15s" material="gold block"/>
+</modes>
+<tnt>
+    <instantignite>on</instantignite>
+    <fuse>3s</fuse>
+</tnt>
+</map>

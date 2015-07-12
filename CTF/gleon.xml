@@ -1,0 +1,390 @@
+<map proto="1.4.0">
+<name>Gleon</name>
+<version>1.0.0</version>
+<objective>Hold the flag until 300 points has been scored!</objective>
+<authors>
+    <author uuid="10c1b730-49b9-4f75-9212-91facc371477" />
+    <!-- Qixit -->
+</authors>
+<deaths>3</deaths>
+<score>
+    <limit>300</limit>
+</score>
+<broadcasts>
+    <alert after="1s">`rOnce captured, the Flag will reward `91 point `rper second. If a player dies, `93 points `rwill be deducted from their team's score.</alert>
+    <alert after="2s">`rThe first team to `9300 points `rwins!</alert>
+    <alert after="15s" every="3m">`f`lIf you enter the water with the flag, you will be poisoned!</alert>
+</broadcasts>
+<teams>
+    <team id="red" color="dark red" max="15" max-overfill="18">Red</team>
+    <team id="blue" color="blue" max="15" max-overfill="18">Blue</team>
+</teams>
+<spawns>
+    <spawn team="red" kit="red-kit">
+        <regions yaw="-45">
+            <region id="red-spawnpoint"/>
+        </regions>
+    </spawn>
+    <spawn team="blue" kit="blue-kit">
+        <regions yaw="135">
+            <region id="blue-spawnpoint"/>
+        </regions>
+    </spawn>
+    <default>
+        <regions yaw="-135">
+            <block id="default-spawn">-1829.5,14,-1069.5</block>
+        </regions>
+    </default>
+    <filter>
+        <not>
+            <same-team>
+                <carrying-flag>flag</carrying-flag>
+            </same-team>
+        </not>
+    </filter>
+</spawns>
+<respawn delay="3s" spectate="true" auto="true">
+    <message>{translate: "death.respawn.confirmed.waiting.flagDropped"}</message>
+</respawn>
+<kits>
+    <kit id="boatkit">
+        <item slot="4">boat</item>
+    </kit>
+    <kit id="spawn" force="true">
+        <item slot="0" unbreakable="true">stone sword</item>
+        <item slot="1" unbreakable="true">bow</item>
+        <item slot="7" amount="2">golden apple</item>
+        <item slot="8" amount="64">golden carrot</item>
+        <item slot="6" amount="24">arrow</item>
+        <potion duration="7" amplifier="10">heal</potion>
+        <helmet unbreakable="true">iron helmet</helmet>
+        <potion duration="2" amplifier="0">health boost</potion>
+        <item slot="2" amount="3" damage="8">stained glass</item>
+        <item slot="3" amount="6">water lily</item>
+        <item slot="4">boat</item>
+    </kit>
+    <!-- attributes="generic.movementSpeed:multiply:0.15" -->
+    <kit id="red-kit" parents="spawn">
+        <chestplate unbreakable="true" color="C40000">leather chestplate</chestplate>
+        <leggings unbreakable="true" color="C40000">leather leggings</leggings>
+        <boots unbreakable="true" locked="true" material="iron boots">
+            <enchantment level="2">protection fall</enchantment>
+        </boots>
+    </kit>
+    <kit id="blue-kit" parents="spawn">
+        <chestplate unbreakable="true" color="334CB2">leather chestplate</chestplate>
+        <leggings unbreakable="true" color="334CB2">leather leggings</leggings>
+        <boots unbreakable="true" locked="true" material="iron boots">
+            <enchantment level="2">protection fall</enchantment>
+        </boots>
+    </kit>
+    <kit id="water-flag" force="true">
+        <potion duration="oo" amplifier="2">poison</potion>
+    </kit>
+    <kit id="void-flag" force="true">
+        <potion duration="oo" amplifier="100">poison</potion>
+    </kit>
+    <kit id="water-no-flag" force="true">
+        <potion duration="1" amplifier="1">poison</potion>
+        <item slot="0" unbreakable="true">stone sword</item>
+    </kit>
+    <kit id="pickup-kit" force="true">
+        <potion duration="oo" amplifier="-1">health boost</potion>
+        <potion duration="3" amplifier="3">heal</potion>
+        <boots unbreakable="true" attributes="generic.movementSpeed:multiply:-0.15" locked="true" material="iron boots">
+            <enchantment level="2">protection fall</enchantment>
+        </boots>
+    </kit>
+    <kit id="drop-kit" force="true">
+        <potion duration="1" amplifier="-1">health boost</potion>
+        <boots unbreakable="true" locked="true" material="iron boots">
+            <enchantment level="2">protection fall</enchantment>
+        </boots>
+    </kit>
+</kits>
+<itemremove>
+    <item>seeds</item>
+    <item>wood</item>
+    <item>stick</item>
+    <item>sapling</item>
+    <item>apple</item>    
+    <item>golden carrot</item>
+    <item>arrow</item>
+    <item>leather leggings</item>
+    <item>leather chestplate</item>
+    <item>iron boots</item>
+    <item>stone sword</item>    
+    <item>bow</item>
+    <item>iron helmet</item>
+    <item>sign</item>
+    <item>stone button</item>
+    <item>red rose</item>
+    <item>water lily</item>
+    <item damage="8">stained glass</item>
+</itemremove>
+<killreward>
+    <filter>
+        <kill-streak count="2" repeat="true"/>
+    </filter>
+    <item amount="1">golden apple</item>
+    <item damage="8">stained glass</item>
+</killreward>
+<killreward>
+    <item amount="12">arrow</item>
+</killreward>
+<flags>
+    <post id="flag-post" recover-time="0" respawn-time="15s">
+        <block>-1764.5,5,-1135.5</block>
+        <block yaw="135">-1813.5,6,-1085.5</block>
+        <block yaw="135">-1714.5,6,-1184.5</block>
+    </post>
+    <flag id="flag" name="Flag" shared="true" pickup-kit="pickup-kit" drop-kit="drop-kit" points-rate="1" post="flag-post" color="white" carry-message="You are carrying the Flag"/>
+</flags>
+<filters>
+    <all id="only-blue">
+        <team>blue</team>
+        <deny>
+            <all>
+                <flag-carried>flag</flag-carried>
+                <team>blue</team>
+            </all>
+        </deny>
+    </all>
+    <all id="only-red">
+        <team>red</team>
+        <deny>
+            <all>
+                <flag-carried>flag</flag-carried>
+                <team>red</team>
+            </all>
+        </deny>
+    </all>
+    <carrying-flag id="carrying-flag">flag</carrying-flag>
+    <any id="breakable-blocks">
+        <material>long grass</material>
+        <material>red rose</material>
+        <material>double plant</material>   
+        <material>water lily</material>
+        <material>stained glass:8</material>
+        <material>water</material>
+        <material>wool:11</material>
+        <material>wool:14</material>
+    </any>
+    <any id="water-break">
+        <material>stained glass:8</material>
+        <material>leaves</material>
+        <material>water</material>
+        <material>stationary water</material>
+        <material>stained glass:8</material>
+        <material>water lily</material> 
+    </any>
+    <all id="blue-place">
+        <team>blue</team>
+        <material>wool:11</material>
+    </all>
+    <all id="red-place">
+        <team>red</team>
+        <material>wool:14</material>
+    </all>
+    <deny id="use">
+        <material>item frame</material>
+    </deny>
+</filters>
+<regions>
+    <!-- Block/Place -->
+    <apply block="never" message="`lYou may not break blocks in `4`lRed Spawn!">
+        <region>
+            <rectangle min="-1805,-1176" max="-1822,-1193"/>
+        </region>
+    </apply>
+    <apply block="never" message="`lYou may not break blocks in `1`lBlue Spawn!">
+        <region>
+            <rectangle min="-1723,-1094" max="-1709,-1080"/>
+        </region>
+    </apply>
+    <!-- When having a single apply on either a union or with all the regions inside, nothing worked. When there is an update for PGM fixing this problem I may update the XML. -->
+    <apply block-place="never" message="`lYou may not place blocks on this jumpad!">
+        <region>
+            <rectangle min="-1835,-1121" max="-1834,-1123"/>
+            <rectangle min="-1836,-1122" max="-1835,-1123"/>
+            <rectangle min="-1833,-1123" max="-1834,-1122"/>
+        </region>
+    </apply>
+    <apply block-place="never" message="`lYou may not place blocks on this jumpad!">
+        <region>
+            <rectangle min="-1750,-1205" max="-1752,-1206"/>
+            <rectangle min="-1751,-1204" max="-1752,-1205"/>
+            <rectangle min="-1751,-1207" max="-1752,-1206"/>
+        </region>
+    </apply>
+    <apply block-place="never" message="`lYou may not place blocks on this jumpad!">
+        <region>
+            <rectangle min="-1693,-1149" max="-1694,-1147"/>
+            <rectangle min="-1692,-1148" max="-1693,-1147"/>
+            <rectangle min="-1694,-1148" max="-1695,-1147"/>
+        </region>
+    </apply>
+    <apply block-place="never" message="`lYou may not place blocks on this jumpad!">
+        <region>
+            <rectangle min="-1778,-1065" max="-1776,-1064"/>
+            <rectangle min="-1777,-1063" max="-1776,-1064"/>
+            <rectangle min="-1776,-1066" max="-1777,-1065"/>
+        </region>
+    </apply>
+    <apply block="never" message="`lYou may not break or place blocks here!">
+        <region>
+            <rectangle id="middle-region" min="-1761,-1138" max="-1767,-1132"/>
+            <cylinder base="-1759.5,4,-1139.5" radius="2" height="oo"/>
+            <cylinder base="-1768.5,4,-1130.5" radius="2" height="oo"/>
+            <cylinder base="-1786.5,4,-1133.5" radius="2" height="oo"/>
+            <cylinder base="-1762.5,4,-1157.5" radius="2" height="oo"/>
+            <cylinder base="-1741.5,4,-1136.5" radius="2" height="oo"/>
+            <cylinder base="-1765.5,4,-1112.5" radius="2" height="oo"/>
+            <rectangle id="blue-portal" min="-1780,-1151" max="-1782,-1153"/>
+            <rectangle id="red-portal" min="-1748,-1119" max="-1746,-1117"/>
+            <rectangle id="obspawn-region" min="-1811,-1082" max="-1817,-1088"/>
+            <rectangle id="opposite-region" min="-1717,-1188" max="-1711,-1182"/>
+        </region>
+    </apply>
+    <apply block-physics="never">
+        <everywhere />
+    </apply>
+    <apply block="breakable-blocks">
+        <above y="1"/>
+    </apply>
+    <apply block="water-break">
+        <below y="1"/>
+    </apply>
+    <apply use="use">
+        <everywhere/>
+    </apply>
+    <apply block="never">
+        <everywhere/>
+    </apply>
+    <apply block-break="red-place" filter="only-red" message="`lOnly the `4`lRed Team `r`lmay destroy this!">
+        <everywhere/>
+    </apply>
+    <apply block-break="blue-place" filter="only-blue" message="`lOnly the `1`lBlue Team `r`lmay destroy this!">
+        <everywhere/>
+    </apply>
+    <!-- Enter -->
+    <apply enter="never" filter="only-red" message="`lOnly `4`lRed Team `r`lmay use this portal!">
+        <region id="red-portal"/>
+    </apply>
+    <apply enter="never" filter="only-blue" message="`lOnly `1`lBlue Team `r`lmay use this portal!">
+        <region id="blue-portal"/>
+    </apply>
+    <union id="spawns">
+        <cuboid id="blue-spawnpoint" min="-1716,8.5,-1087" max="-1718,8.5,-1089"/>
+        <cuboid id="red-spawnpoint" min="-1812,8.5,-1183" max="-1810,8.5,-1181"/>
+        <rectangle id="red-spawn" min="-1805,-1176" max="-1820,-1191"/>
+        <rectangle id="blue-spawn" min="-1723,-1094" max="-1709,-1080"/>
+    </union>
+    <!-- Kits -->
+    <apply kit="boatkit">
+        <region>
+            <cuboid min="-1807,0,-1178" max="-1808,3,-1179"/>
+            <cuboid min="-1721,0,-1092" max="-1720,3,-1091"/>
+        </region>
+    </apply>
+    <apply kit="red-kit" filter="only-red">
+        <region>
+            <cuboid min="-1809,9,-1184" max="-1813,11,-1180"/>
+        </region>
+    </apply>
+    <apply kit="blue-kit" filter="only-blue">
+        <region>
+            <cuboid min="-1715,9,-1090" max="-1719,11,-1086"/>
+        </region>
+    </apply>
+    <apply filter="carrying-flag" kit="water-flag">
+        <region>
+            <negative><above y="2"/></negative>
+        </region>
+    </apply>
+    <apply filter="carrying-flag" kit="void-flag">
+        <region>
+            <negative><above y="-1"/></negative>
+        </region>
+    </apply>
+    <apply filter="carrying-flag" kit="water-no-flag">
+        <region>
+            <above y="2"/>
+        </region>
+    </apply>
+    <!-- Middle Jump pads -->
+    <apply velocity="@0, 1, -2.2" filter="only-blue">
+        <region>
+            <cuboid min="-1778,9.5,-1065" max="-1776,9.5,-1064"/>
+            <cuboid min="-1777,9.5,-1063" max="-1776,9.5,-1064"/>
+            <cuboid min="-1776,9.5,-1066" max="-1777,9.5,-1065"/>
+        </region>
+    </apply>
+        <!-- RED SPAWN - Right Blue -->
+    <apply velocity="@0, 1, -2.2" filter="only-blue">
+        <region>
+            <cuboid min="-1836,9.5,-1123" max="-1833,9.5,-1122"/>
+            <cuboid min="-1835,9.5,-1121" max="-1834,9.5,-1122"/>
+        </region>
+    </apply>
+        <!-- RED SPAWN - Left Blue -->
+    <apply velocity="@-2.2, 1, 0" filter="only-blue">
+        <region>
+            <cuboid min="-1752,9.5,-1204" max="-1751,9.5,-1207"/>
+            <cuboid min="-1750,9.5,-1206" max="-1751,9.5,-1205"/>
+        </region>
+    </apply>
+        <!-- BLUE SPAWN - Right Red -->
+    <apply velocity="@0, 1, 2.2" filter="only-red">
+        <region>
+            <cuboid min="-1692,9.5,-1147" max="-1695,9.5,-1148"/>
+            <cuboid min="-1694,9.5,-1149" max="-1693,9.5,-1148"/>
+        </region>
+    </apply>
+        <!-- BLUE SPAWN - Left Red -->
+    <apply velocity="@2.2, 1, 0" filter="only-red">
+        <region>
+            <cuboid min="-1777,9.5,-1063" max="-1776,9.5,-1066"/>
+            <cuboid min="-1778,9.5,-1065" max="-1777,9.5,-1064"/>
+        </region>
+    </apply>
+</regions>      
+<portals>
+    <portal x="@-1717" y="@6" z="@-1088" filter="only-blue">
+        <region>
+            <cuboid min="-1780,0,-1151" max="-1782,12,-1153"/>
+        </region>
+    </portal>
+    <portal x="@-1811" y="@6" z="@-1182" filter="only-red">
+        <region>
+            <cuboid min="-1748,0,-1119" max="-1746,12,-1117"/>
+        </region>
+    </portal>
+    <portal destination="default-spawn" yaw="@-135" pitch="@20">
+        <region>
+            <below y="-450"/>
+        </region>
+    </portal>
+</portals>
+<blockdrops>
+    <rule>
+        <filter>
+            <material>wool</material>
+        </filter>
+        <drops>
+            <item damage="8" amount="12">stained glass</item>
+        </drops>
+    </rule>
+    <rule>
+        <filter>
+            <material damage="8">stained glass</material>
+        </filter>
+        <drops>
+            <item damage="8">stained glass</item>
+        </drops>
+    </rule>
+</blockdrops>
+<disabledamage>
+    <damage>fall</damage>
+</disabledamage>
+</map>

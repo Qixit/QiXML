@@ -103,6 +103,7 @@
             <item slot="1" unbreakable="true" enchantment="arrow damage:10">bow</item>
             <item slot="2" amount="1">arrow</item>
             <item slot="8" amount="1">melon</item>
+            <double-jump/>
         </kit> 
         <kit id="kill-kit">
             <potion amplifier="2" duration="2">regeneration</potion>
@@ -278,51 +279,6 @@
         <everywhere /> </apply>
     <apply block="never">
         <everywhere /> </apply>
-    <!--  2.5,51,256  -->
-    <apply velocity="-1, 1.8, 1">
-        <region>
-            <cuboid id="jumpad-1" min="3,48.5,256" max="1,49.5,254" /> </region>
-    </apply>
-    <!--  10,49,240  -->
-    <apply velocity="10, 1.5, 10">
-        <region>
-            <cuboid id="jumpad-2" min="13,48.5,242" max="11,49.5,240" /> </region>
-    </apply>
-    <!--  55,47,331  -->
-    <apply velocity="-7, 6, -7">
-        <region>
-            <cuboid id="jumpad-3" min="56,46.5,331" max="54,47.5,333" /> </region>
-    </apply>
-    <!--  33,51,325  -->
-    <apply velocity="-10, 2.5, -10">
-        <region>
-            <cuboid id="jumpad-4" min="34,50.5,326" max="32,51.5,324" /> </region>
-    </apply>
-    <!--  -2, 48, 302  -->
-    <apply velocity="3, 2, 3">
-        <region>
-            <cuboid id="jumpad-5" min="1,48.5,305" max="-1,47.5,303" /> </region>
-    </apply>
-    <!--  13,31,306  -->
-    <apply velocity="-1.5, 3, -1.5">
-        <region>
-            <cuboid id="jumpad-6" min="11,30.5,303" max="13,31.5,305" /> </region>
-    </apply>
-    <!--  -22,10,354  -->
-    <apply velocity="2, 4, -2">
-        <region>
-            <cuboid id="jumpad-7" min="-20,8.5,354" max="-22,9.5,356" /> </region>
-    </apply>
-    <!--  -12,56,279  -->
-    <apply velocity="2, 1, 2">
-        <region>
-            <cuboid id="jumpad-8" min="-13,55.5,278" max="-11,56.5,280" /> </region>
-    </apply>
-    <!--  24,56.5,293  -->
-    <apply velocity="-3, 2, 3">
-        <region>
-            <cuboid id="jumpad-9" min="24,56.5,293" max="26,57.5,291" /> </region>
-    </apply>
 </regions>
 <portals smooth="true" sound="true">
     <portal x="@0.5" y="@22" z="@340.5" yaw="@90">
