@@ -18,35 +18,61 @@
 <filters>
     <team id="only-blue">blue</team>
     <team id="only-red">red</team>
-    <not id="deny-void">
-        <void />
-    </not>  
     <any id="ladder-allowed">
         <material>ladder</material>
     </any>
+    <all id="red-flag-hold">
+        <flag-carried>flag</flag-carried>
+        <team>red</team>
+    </all>
+    <all id="blue-flag-hold">
+        <flag-carried>flag</flag-carried>
+        <team>blue</team>
+    </all>
 </filters>
 <regions>
+    <apply block="never" message="You may not place ladders here!">
+        <region id="flag-nets" />
+        <region id="blue-spawn" />
+        <region id="red-spawn" />
+    </apply>
+    <apply block-physics="never">
+        <everywhere />
+    </apply>
     <apply block="ladder-allowed">
         <everywhere />
     </apply>
     <union id="flag-nets">
-        <cylinder id="blue-net" base="0,14,78" radius="3" height="6"/>
-        <cylinder id="red-net" base="0,14,-77" radius="3" height="6"/>
+        <rectangle id="blue-net" min="-17,60" max="18,68" />
+        <rectangle id="red-net" min="18,-59" max="-17,-67" />
     </union>
-    <union id="spawns">
-        <cuboid id="red-spawn" min="2,6,56" max="-1,0,66" />
-        <cuboid id="blue-spawn" min="-1,6,-55" max="2,0,-65" />
-        <cuboid id="default-spawn" min="-43.6,31,7.5" max="-51.27,34,-6.45" />
+    <union id="red-spawn">
+        <rectangle min="-26,53" max="-31,48" />
+        <rectangle min="-30,47" max="-27,54" />
+        <rectangle min="27,53" max="32,48" />
+        <rectangle min="31,47" max="28,54" />
+        <cuboid min="-26,39,47" max="27,33,67" />
     </union>
-    <apply enter="only-red" region="red-spawn" message="You may not enter the enemy's spawn!"/>
-    <apply enter="only-blue" region="blue-spawn" message="You may not enter the enemy's spawn!"/>
+    <union id="blue-spawn">
+        <rectangle min="28,-46" max="31,-53" />
+        <rectangle min="27,-52" max="32,-47" />
+        <rectangle min="-26,-52" max="-31,-47" />
+        <rectangle min="-27,-53" max="-30,-46" />
+        <cuboid min="-26,39,-47" max="28,33,-67" />
+    </union>
+    <apply enter="only-red" block="never" region="red-spawn" message="You may not enter the enemy's spawn!"/>
+    <apply enter="only-blue" block="never" region="blue-spawn" message="You may not enter the enemy's spawn!"/>
+    <cylinder id="red-spawnpoint" base="0.5,36,56.5" radius="2" height="1" />
+    <cylinder id="blue-spawnpoint" base="0.5,36,-55.5" radius="2" height="1" />
 </regions>
+<maxbuildheight>13</maxbuildheight>
 <kits>
     <kit id="spawn" force="true">
         <item slot="0" unbreakable="true">stone sword</item>
         <item slot="1" unbreakable="true">bow</item>
         <item slot="2" amount="16">arrow</item>
         <item slot="3">golden apple</item>
+        <item slot="4">ladder</item>
         <leggings locked="true" unbreakable="true">chainmail leggings</leggings>
     </kit>
     <kit id="blue-kit" parents="spawn">
@@ -60,20 +86,16 @@
         <chestplate locked="true" color="cd0000" unbreakable="true">leather chestplate</chestplate>
     </kit>
 </kits>
-<respawn delay="2.5s" auto="false" />
-<killreward>
-    <item>golden apple</item>
-    <item>gold ingot</item>
-</killreward>     
+<respawn delay="6s" auto="false" blackout="true" />    
 <spawns>
     <spawn team="blue" kit="blue-kit">
         <regions>
-            <point yaw="0">0.5,2,-62.5</point>
+            <point yaw="0">0.5,36,-55</point>
         </regions>
     </spawn>
     <spawn team="red" kit="red-kit">
         <regions yaw="180">
-            <point yaw="180">0.5,2,63.5</point>
+            <point yaw="180">0.5,36,56.5</point>
         </regions>
     </spawn>
     <default>
@@ -82,6 +104,20 @@
         </regions>
     </default>
 </spawns>    
+<portals>
+    <portal x="@0.5" y="@7" z="@-25.5" yaw="0" filter="blue-flag-hold">
+        <region><cuboid min="5,35,-54" max="6,40,-57"/></region>
+    </portal>
+    <portal x="@0.5" y="@7" z="@26.5" yaw="-180" filter="red-flag-hold">
+        <region><cuboid min="-4,35,55" max="-5,40,58"/></region>
+    </portal>
+    <portal destination="red-spawnpoint" filter="only-red">
+        <region><rectangle min="18,-59" max="-17,-67" /></region>
+    </portal>
+    <portal destination="blue-spawnpoint" filter="only-blue">
+        <region><rectangle min="-17,60" max="18,68" /></region>
+    </portal>
+</portals>
 <hunger>
     <depletion>off</depletion>
 </hunger>
@@ -95,10 +131,11 @@
 <score>
     <limit>3</limit>
 </score>
+<time>15m</time>
 <flags>
     <flag id="flag" name="Flag" color="black" shared="true">
-        <post id="center-post">
-            <cylinder base="0,8,0" radius="4" height="1"/>
+        <post recover-time="10s" respawn-time="30s" id="center-post">
+            <cylinder base="0,8,0" radius="1" height="1"/>
         </post>
         <net points="1" region="red-net" capture-filter="only-red"/>
         <net points="1" region="blue-net" capture-filter="only-blue"/>
